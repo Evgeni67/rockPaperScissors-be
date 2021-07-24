@@ -40,6 +40,7 @@ ProfileSchema.statics.findByCredentials = async function (email, plainPW) {
   }
 };
 ProfileSchema.statics.getOnlineUsers = async function () {
+  console.log("user")
   const users = await this.find({ online:true });
   if (users) {
   return users

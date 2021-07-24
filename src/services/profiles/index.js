@@ -17,6 +17,7 @@ profilesRouter.post("/register", async (req, res, next) => {
 
 profilesRouter.post("/login", async (req, res, next) => {
   try {
+    console.log("in")
     const { name, password } = req.body;
     const user = await ChatProfileModel.findByCredentials(name, password, {
       new: true,
@@ -45,6 +46,7 @@ profilesRouter.get("/getOnlineProfiles", async (req, res, next) => {
     const users = await ChatProfileModel.getOnlineUsers({
       new: true,
     });
+    console.log(users)
     res.send(users);
   } catch (error) {
     next(error);

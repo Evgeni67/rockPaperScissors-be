@@ -28,6 +28,13 @@ const createSocketServer = (server) => {
       // send the message to all the people in that room
       io.emit("login", name);
     });
+    socket.on("battleChallange", async (from,to) => {
+      // when a client sends a message
+     console.log("SOCKET IS WORKING");
+      // send challange 
+      var challange = {from : from, to:to}
+      io.emit("challange", challange);
+    });
   });
 };
 

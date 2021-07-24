@@ -10,6 +10,7 @@ const {
 } = require("./services/utilities/errorHandling");
 const profileRouter = require("./services/profiles");
 const convoRouter = require("./services/messages");
+const battlesRouter = require("./services/battles");
 const server = express();
 const httpServer = http.createServer(server)
 createSocketServer(httpServer)
@@ -22,6 +23,7 @@ server.use(cors());
 server.use(express.json());
 server.use("/profiles",profileRouter)
 server.use("/convos",convoRouter)
+server.use("/battles",battlesRouter)
 server.use(badRequestHandler);
 server.use(notFoundHandler);
 server.use(genericErrorHandler);
