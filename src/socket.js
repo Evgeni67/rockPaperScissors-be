@@ -35,7 +35,7 @@ const createSocketServer = (server) => {
       var challange = {from : from, to:to}
       io.emit("challange", challange);
     });
-  });
+  })
 };
 
 module.exports = createSocketServer;
