@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
-const http = require("http")
-const createSocketServer = require("./socket")
+const http = require("http");
+const createSocketServer = require("./socket");
 const mongoose = require("mongoose");
 const {
   badRequestHandler,
@@ -12,18 +12,17 @@ const profileRouter = require("./services/profiles");
 const convoRouter = require("./services/messages");
 const battlesRouter = require("./services/battles");
 const server = express();
-const httpServer = http.createServer(server)
-createSocketServer(httpServer)
+const httpServer = http.createServer(server);
+createSocketServer(httpServer);
 const port = process.env.PORT || 3002;
-
 
 server.use(express.json({ limit: "50mb" }));
 server.use(cors());
 
 server.use(express.json());
-server.use("/profiles",profileRouter)
-server.use("/convos",convoRouter)
-server.use("/battles",battlesRouter)
+server.use("/profiles", profileRouter);
+server.use("/convos", convoRouter);
+server.use("/battles", battlesRouter);
 server.use(badRequestHandler);
 server.use(notFoundHandler);
 server.use(genericErrorHandler);
@@ -35,6 +34,6 @@ mongoose
   })
   .then(
     httpServer.listen(port, () => {
-      console.log("Running on port", port)
+      console.log("Running on port", port);
     })
   );

@@ -30,7 +30,6 @@ const ProfileSchema = new Schema(
 
 ProfileSchema.statics.findByCredentials = async function (email, plainPW) {
   const user = await this.findOne({ name:email });
- 
   if (user) {
     const isMatch = await bcrypt.compare(plainPW, user.password);
     if (isMatch) return user;
@@ -40,7 +39,6 @@ ProfileSchema.statics.findByCredentials = async function (email, plainPW) {
   }
 };
 ProfileSchema.statics.getOnlineUsers = async function () {
-  console.log("user")
   const users = await this.find({ online:true });
   if (users) {
   return users
