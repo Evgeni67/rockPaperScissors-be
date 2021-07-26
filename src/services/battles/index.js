@@ -33,34 +33,64 @@ battlesRouter.get("/getBattle", authorize, async (req, res, next) => {
 battlesRouter.get("/getResult/:id", async (req, res, next) => {
   try {
     console.log("req.user.name");
-    console.log("collecting data...")
+    console.log("collecting data...");
     const gameToFinish = await BattleModel.findById(
       mongoose.Types.ObjectId(req.params.id)
     );
-    console.log(gameToFinish)
-    const player1Card = gameToFinish.player1Card
-    const player2Card = gameToFinish.player2Card
+    console.log(gameToFinish);
+    const player1Card = gameToFinish.player1Card;
+    const player2Card = gameToFinish.player2Card;
+    console.log("player1Card ->", player1Card);
+    console.log("player2Card ->", player2Card);
+    //update required
     if (player1Card === "R" && player2Card === "S") {
-      res.send("player1Wins")
+      res.send({
+        whoWins: "player1Wins",
+        player1Card: player1Card,
+        player2Card: player2Card,
+      });
     } else if (player1Card === "R" && player2Card === "P") {
-      res.send("player2Wins")
+      res.send({
+        whoWins: "player2Wins",
+        player1Card: player1Card,
+        player2Card: player2Card,
+      });
       return;
     } else if (player1Card === "S" && player2Card === "P") {
-      res.send("player1Wins")
+      res.send({
+        whoWins: "player1Wins",
+        player1Card: player1Card,
+        player2Card: player2Card,
+      });
       return;
     } else if (player1Card === "P" && player2Card === "R") {
-      res.send("player1Wins")
+      res.send({
+        whoWins: "player1Wins",
+        player1Card: player1Card,
+        player2Card: player2Card,
+      });
       return;
     } else if (player1Card === "P" && player2Card === "S") {
-      res.send("player2Wins")
+      res.send({
+        whoWins: "player2Wins",
+        player1Card: player1Card,
+        player2Card: player2Card,
+      });
       return;
     } else if (player1Card === "S" && player2Card === "R") {
-      res.send("player2Wins")
+      res.send({
+        whoWins: "player2Wins",
+        player1Card: player1Card,
+        player2Card: player2Card,
+      });
       return;
     } else {
-      res.send("tie")
+      res.send({
+        whoWins: "tie",
+        player1Card: player1Card,
+        player2Card: player2Card,
+      });
     }
-
   } catch (error) {
     next(error);
   }
@@ -68,8 +98,9 @@ battlesRouter.get("/getResult/:id", async (req, res, next) => {
 battlesRouter.post("/addCard/:id", authorize, async (req, res, next) => {
   try {
     console.log(req.body.isPlayer1);
+
     if (req.body.isPlayer1) {
-      updatedBattle = await BattleModel.findByIdAndUpdate(
+      const updatedBattle = await BattleModel.findByIdAndUpdate(
         mongoose.Types.ObjectId(req.params.id),
         {
           player1Card: req.body.playerCard,
@@ -78,8 +109,11 @@ battlesRouter.post("/addCard/:id", authorize, async (req, res, next) => {
           new: true,
         }
       );
+      console.log(updatedBattle);
+
+      res.send(updatedBattle);
     } else {
-      updatedBattle = await BattleModel.findByIdAndUpdate(
+      const updatedBattle = await BattleModel.findByIdAndUpdate(
         mongoose.Types.ObjectId(req.params.id),
         {
           player2Card: req.body.playerCard,
@@ -88,19 +122,17 @@ battlesRouter.post("/addCard/:id", authorize, async (req, res, next) => {
           new: true,
         }
       );
+      console.log(updatedBattle);
+
+      res.send(updatedBattle);
     }
-
-    console.log(updatedBattle);
-
-    res.send(updatedBattle);
   } catch (error) {
     next(error);
   }
 });
 battlesRouter.get("/getResult/:id", async (req, res, next) => {
-  console.log("collecting data...")
+  console.log("collecting data...");
   try {
-    
   } catch (error) {
     next(error);
   }
