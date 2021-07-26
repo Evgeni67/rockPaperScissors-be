@@ -14,18 +14,14 @@ battlesRouter.post("/startBattle", authorize, async (req, res, next) => {
     next(error);
   }
 });
-battlesRouter.get("/getBattle", authorize, async (req, res, next) => {
+battlesRouter.get("/getBattle/:id", authorize, async (req, res, next) => {
   try {
-    console.log(req.user.name);
-    const battles = await BattleModel.find({
-      $or: [{ player1: req.user.name }, { player2: req.user.name }],
-    });
-    const currentBattle = battles.filter(
-      (battle) => battle.isFinished === false
-    )[0];
-    console.log(battles);
-
-    res.send(currentBattle);
+    
+    const battles = await BattleModel.findById(
+      mongoose.Types.ObjectId(req.params.id)
+    );
+    console.log("battles -> ",battles);
+    res.send(battles);
   } catch (error) {
     next(error);
   }

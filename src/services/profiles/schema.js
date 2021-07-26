@@ -14,6 +14,10 @@ const ProfileSchema = new Schema(
       type:Boolean,
       required:true,
     },
+    profilePic: {
+      type:String,
+      required:true,
+    },
     tokens: [
       {
         token: {
